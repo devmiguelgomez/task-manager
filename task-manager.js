@@ -34,6 +34,13 @@ function completarTarea(id) {
 
 // === ELIMINAR TAREA ===
 function eliminarTarea(id) {
+  const index = tareas.findIndex((t) => t.id === id);
+  if (index === -1) {
+    console.log("⚠️ Tarea no encontrada.\n");
+    return;
+  }
+  tareas.splice(index, 1);
+  console.log("🗑️ Tarea eliminada correctamente.\n");
 }
 
 // === MENÚ PRINCIPAL ===

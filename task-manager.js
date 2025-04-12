@@ -77,13 +77,13 @@ function mostrarMenu() {
         mostrarMenu();
         break;
       case "3":
-        rl.question("✅ ID de la tarea a completar: ", (id) => {
+        rl.question("✅ ID de la tarea a completar(Ejemplo: 1,2,3 y etc): ", (id) => {
           completarTarea(parseInt(id));
           mostrarMenu();
         });
         break;
       case "4":
-        rl.question("🗑️ ID de la tarea a eliminar: ", (id) => {
+        rl.question("🗑️ ID de la tarea a eliminar(Ejemplo: 1,2,3 y etc): ", (id) => {
           eliminarTarea(parseInt(id));
           mostrarMenu();
         });

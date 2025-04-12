@@ -16,6 +16,16 @@ function crearTarea(nombre) {
 
 // === LISTAR TAREAS ===
 function listarTareas() {
+  if (tareas.length === 0) {
+    console.log("ðŸ“­ No hay tareas registradas.\n");
+    return;
+  }
+  console.log("\nðŸ“‹ Lista de tareas:");
+  tareas.forEach((tarea) => {
+    const estado = tarea.completada ? "âœ”ï¸ Completada" : "âŒ Pendiente";
+    console.log(`${tarea.id}. ${tarea.nombre} - ${estado}`);
+  });
+  console.log("");
 }
 
 // === MARCAR COMO COMPLETADA ===

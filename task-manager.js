@@ -43,6 +43,47 @@ const rl = readline.createInterface({
 });
 
 function mostrarMenu() {
+  console.log("==== 📝 GESTOR DE TAREAS ====");
+  console.log("1️⃣ Crear tarea");
+  console.log("2️⃣ Listar tareas");
+  console.log("3️⃣ Completar tarea");
+  console.log("4️⃣ Eliminar tarea");
+  console.log("5️⃣ Salir\n");
+
+  rl.question("👉 Selecciona una opción: ", (opcion) => {
+    switch (opcion) {
+      case "1":
+        rl.question("✏️ Escribe el nombre de la tarea: ", (nombre) => {
+          crearTarea(nombre);
+          mostrarMenu();
+        });
+        break;
+      case "2":
+        listarTareas();
+        mostrarMenu();
+        break;
+      case "3":
+        rl.question("✅ ID de la tarea a completar: ", (id) => {
+          completarTarea(parseInt(id));
+          mostrarMenu();
+        });
+        break;
+      case "4":
+        rl.question("🗑️ ID de la tarea a eliminar: ", (id) => {
+          eliminarTarea(parseInt(id));
+          mostrarMenu();
+        });
+        break;
+      case "5":
+        console.log("👋 ¡Hasta luego!");
+        rl.close();
+        break;
+      default:
+        console.log("❌ Opción inválida. Intenta de nuevo.\n");
+        mostrarMenu();
+        break;
+    }
+  });
 }
 
 // Iniciar menú

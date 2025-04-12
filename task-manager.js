@@ -30,6 +30,13 @@ function listarTareas() {
 
 // === MARCAR COMO COMPLETADA ===
 function completarTarea(id) {
+  const tarea = tareas.find((t) => t.id === id);
+  if (!tarea) {
+    console.log("⚠️ Tarea no encontrada.\n");
+    return;
+  }
+  tarea.completada = true;
+  console.log("✅ Tarea marcada como completada.\n");
 }
 
 // === ELIMINAR TAREA ===

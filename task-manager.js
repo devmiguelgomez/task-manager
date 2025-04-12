@@ -5,6 +5,13 @@ let tareas = [];
 
 // === CREAR TAREA ===
 function crearTarea(nombre) {
+    const nuevaTarea = {
+        id: tareas.length + 1,
+        nombre,
+        completada: false,
+      };
+      tareas.push(nuevaTarea);
+      console.log("✅ Tarea creada correctamente.\n");
 }
 
 // === LISTAR TAREAS ===

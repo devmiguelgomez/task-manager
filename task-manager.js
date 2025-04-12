@@ -38,6 +38,8 @@ function eliminarTarea(id) {
 
 // === MENÚ PRINCIPAL ===
 const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout,
 });
 
 function mostrarMenu() {

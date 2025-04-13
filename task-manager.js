@@ -2,52 +2,66 @@ const readline = require('readline');
 
 // Lista de tareas (simulación en memoria)
 let tareas = [];
-
+// === GENERAR ID ÚNICO ===
+let currentId = 1;
 // === CREAR TAREA ===
-function crearTarea(nombre) {
-    const nuevaTarea = {
-        id: tareas.length + 1,
-        nombre,
-        completada: false,
-      };
-      tareas.push(nuevaTarea);
-      console.log("✅ Tarea creada correctamente.\n");
+function crearTarea(tareadescripcion) {
+  const nuevaTarea = {
+    id: currentId++,
+    descripcion: tareadescripcion,
+    completada: false,
+  };
+  tareas.push(nuevaTarea);
+  console.log("✅ Tarea creada correctamente.\n");
+  return nuevaTarea;
 }
 
 // === LISTAR TAREAS ===
 function listarTareas() {
   if (tareas.length === 0) {
-    console.log("📭 No hay tareas registradas.\n");
+    console.log("❌ No hay tareas disponibles.\n");
     return;
   }
-  console.log("\n📋 Lista de tareas:");
-  tareas.forEach((tarea) => {
-    const estado = tarea.completada ? "✅ Completada" : "❌ Pendiente";
-    console.log(`📝 ${tarea.id}. ${tarea.nombre} - ${estado}`);
-  });
-  console.log("");
+
+  console.log("==== TAREAS ====");
+  for (let tarea of tareas) {
+    console.log(`🆔 ${tarea.id} - 📝 ${tarea.descripcion} - ${tarea.completada ? "✅ Completada" : "❌ No completada"}`);
+  }
+  console.log("\n");
 }
+
 
 // === MARCAR COMO COMPLETADA ===
 function completarTarea(id) {
-  const tarea = tareas.find((t) => t.id === id);
-  if (!tarea) {
-    console.log("⚠️ Tarea no encontrada.\n");
-    return;
+  let encontrada = false;
+
+  for (let tarea of tareas) {
+    if (tarea.id === id) {
+      tarea.completada = true;
+      console.log(`✅ Tarea "${tarea.descripcion}" marcada como completada!\n`);
+      encontrada = true;
+      return tarea;
+    }
   }
-  tarea.completada = true;
-  console.log("✅ Tarea marcada como completada.\n");
+
+  if (!encontrada) {
+    console.log("❌ Tarea no encontrada.\n");
+    return "Tarea no encontrada";
+  }
 }
 
 // === ELIMINAR TAREA ===
 function eliminarTarea(id) {
-  const index = tareas.findIndex((t) => t.id === id);
-  if (index === -1) {
-    console.log("⚠️ Tarea no encontrada.\n");
-    return;
+  let tarea = tareas.find(t => t.id === id);
+  for (let index = 0; index < tareas.length; index++) {
+    if (tareas[index].id === id) {
+      tareas.splice(index, 1);
+      console.log(`🗑️  Tarea "${tarea.descripcion}" eliminada correctamente.\n`);
+      return "Task deleted";
+    }
   }
-  tareas.splice(index, 1);
-  console.log("🗑️ Tarea eliminada correctamente.\n");
+  console.log("⚠️ Tarea no encontrada.\n");
+  return "Task not found";
 }
 
 // === MENÚ PRINCIPAL ===
@@ -67,8 +81,8 @@ function mostrarMenu() {
   rl.question("👉 Selecciona una opción: ", (opcion) => {
     switch (opcion) {
       case "1":
-        rl.question("✏️ Escribe el nombre de la tarea: ", (nombre) => {
-          crearTarea(nombre);
+        rl.question("✏️ Escribe la descripción de la tarea: ", (descripcion) => {
+          crearTarea(descripcion, descripcion); // Corregido para pasar la descripción correctamente
           mostrarMenu();
         });
         break;
@@ -77,13 +91,13 @@ function mostrarMenu() {
         mostrarMenu();
         break;
       case "3":
-        rl.question("✅ ID de la tarea a completar(Ejemplo: 1,2,3 y etc): ", (id) => {
+        rl.question("✅ ID de la tarea a completar (Ejemplo: 1,2,3 y etc): ", (id) => {
           completarTarea(parseInt(id));
           mostrarMenu();
         });
         break;
       case "4":
-        rl.question("🗑️ ID de la tarea a eliminar(Ejemplo: 1,2,3 y etc): ", (id) => {
+        rl.question("🗑️ ID de la tarea a eliminar (Ejemplo: 1,2,3 y etc): ", (id) => {
           eliminarTarea(parseInt(id));
           mostrarMenu();
         });
